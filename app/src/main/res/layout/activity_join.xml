@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:id="@+id/joinLin"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.JoinActivity">
+
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/editId"
+            android:hint="ID"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginBottom="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+        </EditText>
+
+        <EditText
+            android:id="@+id/editPassWord"
+            android:hint="PassWord"
+            app:boxBackgroundMode="outline"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+        </EditText>
+
+        <EditText
+            android:id="@+id/editPassWordCheck"
+            android:hint="PassWordCheck"
+            app:boxBackgroundMode="outline"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+        </EditText>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_joinComplete"
+            android:layout_margin="32dp"
+            android:text="완료"
+            android:textSize="20dp"
+            android:backgroundTint="#131732"
+            android:fontFamily="@font/opensans"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </com.google.android.material.button.MaterialButton>
+    </LinearLayout>
+
+
+</LinearLayout>

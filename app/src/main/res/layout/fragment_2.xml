@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:clickable="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/iv_fragment2img"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/sunset" />
+
+    <io.jmdg.typedkt.TypedKtView
+        android:id="@+id/tkv_animate_xml"
+        android:layout_marginTop="100dp"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text=""
+        app:animateOnLoad="false"
+        app:delay="150"
+        app:isAnimatedByWord="false"
+        app:isLooped="false"/>
+
+
+    <io.jmdg.typedkt.TypedKtView
+        android:id="@+id/tempText"
+        android:gravity="center"
+        android:layout_marginTop="200dp"
+        android:text=""
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </io.jmdg.typedkt.TypedKtView>
+
+    <TextView
+        android:id="@+id/tempText3"
+        android:gravity="center"
+        android:layout_marginTop="300dp"
+        android:text="명언 들어갈 자리"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </TextView>
+</FrameLayout>
