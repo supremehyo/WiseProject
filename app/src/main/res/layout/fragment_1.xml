@@ -1,15 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootfragment1"
+    android:orientation="vertical"
+    android:background="#E86B79"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/iv_fragment1img"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:scaleType="fitXY"
-        android:src="@drawable/back" />
+        android:id="@+id/backgroundImagef1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </ImageView>
 
-</LinearLayout>
+    <TextView
+        android:textSize="24dp"
+        android:id="@+id/f1ContentText"
+        android:gravity="center"
+        android:fontFamily="@font/nanumsquareroundeb"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="150dp"
+        android:text=""
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        ></TextView>
+
+
+    <TextView
+        android:textSize="16dp"
+        android:id="@+id/f1tempText3"
+        android:gravity="center"
+        android:fontFamily="@font/nanumsquareroundeb"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="350dp"
+        android:text=""
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </TextView>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/Lottie_heart"
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:layout_gravity="bottom"
+        app:lottie_rawRes="@raw/lf30_editor_yjixlnlv" />
+</FrameLayout>

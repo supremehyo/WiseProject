@@ -18,4 +18,13 @@
     <string name="path_search">
        M141,17 A9,9 0 1,1 142,16 L149,23
     </string>
+
+    <string-array name="background_image_name">
+        <item>background1.jpg</item>
+        <item>background2.jpg</item>
+        <item>background3.jpg</item>
+        <item>background4.jpg</item>
+        <item>background5.jpg</item>
+        <item>background6.jpg</item>
+    </string-array>
 </resources>

@@ -1,30 +1,68 @@
 package com.example.wisesayproject.Fragment
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
-import android.text.InputType
 import android.util.Log
 import android.view.*
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import com.airbnb.lottie.LottieAnimationView
+import com.example.wisesayproject.Contract.WiseContract
+import com.example.wisesayproject.DTO.SaveWise
+import com.example.wisesayproject.DTO.WiseSaying
+import com.example.wisesayproject.Presenter.MemberPresenter
+import com.example.wisesayproject.Presenter.WisePresenter
 import com.example.wisesayproject.R
+import com.google.android.material.chip.ChipGroup
 import com.kennyc.bottomsheet.BottomSheetListener
 import com.kennyc.bottomsheet.BottomSheetMenuDialogFragment
-import kotlinx.android.synthetic.main.custom_view.*
-import kotlinx.android.synthetic.main.custom_view.view.*
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_2.*
 import kotlinx.android.synthetic.main.fragment_2.view.*
-import kotlinx.android.synthetic.main.fragment_2.view.tkv_animate_xml
+import java.util.*
 
+class Fragment2 : Fragment(), WiseContract.View, BottomSheetListener {
 
-class Fragment2 : Fragment(), BottomSheetListener {
-
-
+    var touchCountFlag : Int = 0;
+    var firestTouchCount : Int =0;
+    val  intani : Animation = AlphaAnimation(0.0f, 1.0f);
+    val outani : Animation = AlphaAnimation(1.0f, 0.0f);
+    private  lateinit var writeuserNicnname :String
+    private  lateinit var content : String
+    private  lateinit  var  wpresenter: WisePresenter
+    private lateinit var prefs3 :SharedPreferences
+    lateinit var  tempquestion : String
+    lateinit var  feel : String
+    lateinit var backgroundImagef2 : ImageView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_2, container, false)
+        wpresenter = WisePresenter()
+        wpresenter.setView(this)
+
+        writeuserNicnname = ""
+        backgroundImagef2 = view.findViewById(R.id.backgroundImagef2)
+
+        val prefs2 :SharedPreferences = requireContext().getSharedPreferences("first", Context.MODE_PRIVATE)
+        prefs3 = requireContext().getSharedPreferences("LoginNickname", Context.MODE_PRIVATE)
+        if(prefs2.getInt("first",1) == 1){
+            intani.setDuration(3000);
+            outani.setDuration(3000);
+            view.tempText3.startAnimation(outani)
+            view.tempText3.setText("반가워요.\n우리 혹시 초면인가요?")
+            view.tempText3.startAnimation(intani)
+            firestTouchCount++
+        }else{
+            view.tempText3.setText("저를 부르려면 화면을\n꾹 눌러주세요.")
+        }
+
 
         var dialog : BottomSheetMenuDialogFragment.Builder = BottomSheetMenuDialogFragment.Builder(context =view.context,
             sheet = R.menu.grid_sheet,
@@ -33,20 +71,36 @@ class Fragment2 : Fragment(), BottomSheetListener {
             listener = this,
             `object` = "some object")
 
+        view.f2Rootlayout.setOnClickListener {
+            if(firestTouchCount == 1){ // 첫 등장 텍스트
+                TextAni("저는 OO 입니다.\n모두에게 해답을 주고 있죠.")
+                firestTouchCount++
+            }else if(firestTouchCount==2){
+                TextAni("질문할게 있다면 화면 꾹 눌러보세요.\n그리고 뭐든 질문하세요.")
+                firestTouchCount = 0
+                prefs2.edit().putInt("first",0).apply()
+            }
+            
+            if(touchCountFlag == 1){ // 질문 누르고 나서 동작
+                TextAni("라고 질문해주셨네요.")
+                touchCountFlag++
+            }else if(touchCountFlag == 2){
+                TextAniend("조금만 기다려주세요.\nOO이 책을 찾아보고 있어요!")
+                touchCountFlag =0
+                wpresenter.getWise(feel) // 요청z
+                
+            }
+            
 
-        view.iv_fragment2img.setOnClickListener {
-            Log.d("cccclink" , "짧은 클릭")
         }
-        view.iv_fragment2img.setOnLongClickListener(object  : View.OnLongClickListener{
+        view.f2Rootlayout.setOnLongClickListener(object  : View.OnLongClickListener{
             override fun onLongClick(p0: View?): Boolean {
                 dialog.show(parentFragmentManager)
                 Log.d("cccclink" , "롱클릭")
 
                 return true
             }
-
         })
-
         return  view
     }
 
@@ -84,52 +138,94 @@ class Fragment2 : Fragment(), BottomSheetListener {
     ) {
 
         if(item.title.toString().equals("질문하기")){
+            ContentText.text = ""
+            tempText3.visibility = View.INVISIBLE
             val builder = AlertDialog.Builder(requireContext()) // 코틀린의 경우 Fragment의 Context? 를 반환하기 때문에 requireContext를 통해 Context를 반환 가능하다.
             val dialogView : View = layoutInflater.inflate(R.layout.custom_view, null)
             val dialogText = dialogView.findViewById<EditText>(R.id.dialogEt)
+            val chips = dialogView.findViewById<ChipGroup>(R.id.defaultChipGroup)
+            chips.setOnCheckedChangeListener { group, checkedId ->
+                if(checkedId == R.id.defaultChip1){
+                    feel = "행복"
+                }else if(checkedId == R.id.defaultChip2){
+                    feel ="슬픔"
+                }else if(checkedId == R.id.defaultChip3){
+                    feel ="분노"
+                }else if(checkedId == R.id.defaultChip4){
+                    feel ="혼란"
+                }
+            }
             builder.setView(dialogView)
                 .setPositiveButton("완료") { dialogInterface, i ->
-                    tkv_animate_xml.text = dialogText.text.toString()
-                    // Animate by characters
-
-                    tempText.text = "라고 질문해주셨군요.\n 곧 답을 찾아드리겠습니다."
-                    tempText.animateText()
                     /* 확인일 때 main의 View의 값에 dialog View에 있는 값을 적용 */
+                    ContentText.visibility = View.VISIBLE
+                    tempText3.visibility = View.VISIBLE
+                    tempquestion = dialogText.text.toString()
+                    TextAni(dialogText.text.toString())
+                    touchCountFlag++
+
                 }
                 .setNegativeButton("취소") { dialogInterface, i ->
                     /* 취소일 때 아무 액션이 없으므로 빈칸 */
+                    ContentText.text = ""
+                    tempText3.visibility = View.VISIBLE
+                    val random = Random()
+                    val num = random.nextInt(2)
+                    if(num ==0){
+                        TextAni("고민 하지마세요.\n어떤 질문이든 괜찮아요. 정말 :)")
+                    }else if(num==1){
+                        TextAni("속시원하게 털어놓는게\n오히려 마음이 편할거예요!")
+                    }
                 }
                 .show()
-
-
         }else if(item.title.toString().equals("저장하기")){
-            Toast.makeText(context, item.title.toString() + " Clicked", Toast.LENGTH_SHORT).show()
-        }else if(item.title.toString().equals("공유하기")){
-            Toast.makeText(context, item.title.toString() + " Clicked", Toast.LENGTH_SHORT).show()
-        }
-
+            if(writeuserNicnname != ""){
+                wpresenter.saveWise(writeuserNicnname ,content ,prefs3.getString("LoginNickname" , "").toString(),tempquestion)
+            }else{
+                Toast.makeText(context, "아직 아무런 질문을 하지 않았어요.", Toast.LENGTH_SHORT).show()
+            }
+        }// if(item.title.toString().equals("공유하기")){
+         //   Toast.makeText(context, item.title.toString() + " Clicked", Toast.LENGTH_SHORT).show()
+      //  }
     }
-
     override fun onSheetShown(bottomSheet: BottomSheetMenuDialogFragment, `object`: Any?) {
         Log.v("dia", "onSheetShown with Object " + `object`!!)
     }
 
-    override fun onResume() {
-        super.onResume()
-        if(tkv_animate_xml.isAnimating()){
-            tkv_animate_xml.animateText()
-        }
+    fun TextAni (string : String){
+        intani.setDuration(3000)
+        outani.setDuration(3000)
+        tempText3.startAnimation(outani)
+        tempText3.setText(string)
+        tempText3.startAnimation(intani)
     }
 
-    override fun onPause() {
-        super.onPause()
-        // Pause animation
-        tkv_animate_xml.skipAnimation()
+    fun TextAniend(string : String){
+        intani.setDuration(3000)
+        outani.setDuration(3000)
+        tempText3.startAnimation(outani)
+        tempText3.setText(string)
+        tempText3.startAnimation(intani)
+        Thread.sleep(1000)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        // Remove callbacks
-        tkv_animate_xml.removeAnimation()
+    override fun returnGetWise(wise: WiseSaying) {
+        //최근 //여기로 wise 가져와서 화면에 띄우면 된다.
+     //   tempText3.visibility = View.INVISIBLE
+        ContentText.visibility = View.VISIBLE
+        ContentText.text = wise.content
+        content = wise.content
+        Picasso.get().load("http://121.181.189.167:8090/upload/"+wise.imagename).into(backgroundImagef2)
+        tempText3.text = wise.userNickname
+        writeuserNicnname = wise.userNickname
     }
+
+    override fun showToast(text: String) {
+        Toast.makeText(requireContext(), text,Toast.LENGTH_LONG).show()
+    }
+
+    override fun returnsaveWiseList(list: List<SaveWise>) {
+
+    }
+
 }

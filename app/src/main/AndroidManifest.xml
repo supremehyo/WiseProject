@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.wisesayproject">
+    package="com.example.wisesayproject" >
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
 
     <application
         android:allowBackup="true"
@@ -11,14 +14,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true">
-        <activity android:name=".Activity.SearchAniActivity"></activity>
+        android:usesCleartextTraffic="true" >
+        <activity android:name=".Activity.UserSayingSaveBoxDetailActivity" >
+        </activity>
+        <activity android:name=".Activity.UserSayingSaveBoxActivity" />
+        <activity android:name=".Activity.UserSayingBoxDetailActivity" />
+        <activity android:name=".Activity.UserSayingBoxActivity" />
         <activity android:name=".Activity.CompleteActivity" />
         <activity android:name=".Activity.WiseSayWriteActivity" />
         <activity android:name=".Activity.JoinActivity" />
         <activity android:name=".Activity.LoginActivity" />
         <activity android:name=".Activity.MainActivity2" />
-        <activity android:name=".Activity.MainActivity">
+        <activity android:name=".Activity.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

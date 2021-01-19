@@ -58,4 +58,20 @@ class MemberModel (presenter : MemberContract.Presenter) : MemberContract.InfoDa
             }
         })
     }
+
+    fun getmemberLikeCount(userNickname: String , callback: MemberContract.InfoDataSource.LoadInfoCallback){
+        var dto = User(userNickname , "") //  user dto 만든거임
+        var gson = Gson()
+        var objJson : String = gson.toJson(dto)
+        mservice.getmemberLikeCount(objJson).enqueue(object : Callback<Int> {
+            override fun onFailure(call: Call<Int>, t: Throwable) {
+                Log.d("@@@","실패 : {$t}")
+                callback.onDataNotAvailable("실패")
+            }
+            override fun onResponse(call: Call<Int>, response: Response<Int>) {
+                Log.v("llloggg", response.body().toString())
+                    callback.onInfoLoaded(response.body().toString())
+            }
+        })
+    }
 }

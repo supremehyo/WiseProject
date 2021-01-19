@@ -3,20 +3,20 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="#E86B79"
-    android:id="@+id/f2Rootlayout"
+    android:background="#000000"
+    android:id="@+id/DetailRootlayout"
     android:clickable="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/backgroundImagef2"
+        android:id="@+id/saveDetail_backgroundImage"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </ImageView>
     <TextView
-        android:textSize="16dp"
-        android:id="@+id/ContentText"
+        android:textSize="24dp"
+        android:id="@+id/saveContentText"
         android:gravity="center"
         android:fontFamily="@font/nanumsquareroundeb"
         android:textColor="#FFFFFF"
@@ -24,11 +24,11 @@
         android:text=""
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-    ></TextView>
+        ></TextView>
 
     <TextView
-        android:textSize="16dp"
-        android:id="@+id/tempText3"
+        android:textSize="24dp"
+        android:id="@+id/saveusername"
         android:gravity="center"
         android:fontFamily="@font/nanumsquareroundeb"
         android:textColor="#FFFFFF"
@@ -37,8 +37,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </TextView>
-
-
-
 
 </FrameLayout>

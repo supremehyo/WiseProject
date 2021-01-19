@@ -57,7 +57,7 @@ class JoinActivity : AppCompatActivity(), MemberContract.View {
 
     }
 
-    override fun waringShackBar2() {
+    override fun waringShackBar2(ss : String) {
 
     }
 }

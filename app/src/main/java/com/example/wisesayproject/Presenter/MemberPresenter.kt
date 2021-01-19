@@ -41,9 +41,21 @@ class MemberPresenter : MemberContract.Presenter , MemberContract.InfoDataSource
             }
             override fun onDataNotAvailable(ff : String) {
                 if(ff.equals("실패")) {
-                    MemberView?.waringShackBar2()
+                    MemberView?.waringShackBar2("네트워크 통신에 실패했습니다.")
                 }
             }
         }) // 로그인 요청 보냄
+    }
+
+    override fun getmemberLikeCount(userNickname: String) {
+        MemberModel?.getmemberLikeCount(userNickname  , object : MemberContract.InfoDataSource.LoadInfoCallback{
+            override fun onInfoLoaded(ss: String) {
+                MemberView?.waringShackBar2(ss)
+            }
+
+            override fun onDataNotAvailable(ff: String) {
+
+            }
+        })
     }
 }

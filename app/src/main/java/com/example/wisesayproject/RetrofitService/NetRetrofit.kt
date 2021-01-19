@@ -9,7 +9,7 @@ object NetRetrofit {
     private val gson = GsonBuilder().setLenient().create()
 
     // 서버 주소
-    private const val BASE_URL = "http://14.45.228.235:8090/"
+    private const val BASE_URL = "http://121.181.189.167:8090/"
 
     // SingleTon
     fun getInstance(): Retrofit {
