@@ -19,3 +19,6 @@ MVP 패턴을 이용한 명대사 어플리케이션입니다.
 1. retrofit2 - spring 서버와 통신하기 위해 사용
 2. picasso - 이미지 로딩을 위해 사용 
 3. Lottie - 좋아요 애니메이션을 위해 
+
+
+https://www.notion.so/270dba0b5e70433092d4a548cec40d41
