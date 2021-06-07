@@ -21,4 +21,4 @@ MVP 패턴을 이용한 명대사 어플리케이션입니다.
 3. Lottie - 좋아요 애니메이션을 위해 
 
 
-https://www.notion.so/270dba0b5e70433092d4a548cec40d41
+https://www.notion.so/8fc364eb0cec44ec8787cf634a51f326
